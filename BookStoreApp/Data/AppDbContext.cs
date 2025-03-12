@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace BookStoreApp.Data{
-    public class AppDbContext:IdentityDbContext<IdentityUser>{
+    public class AppDbContext:IdentityDbContext<User>{
         private readonly IOptions<ConnectionStringModel> _ConnectionString;
 
         public AppDbContext(DbContextOptions<AppDbContext> options,IOptions<ConnectionStringModel> ConnectionString): base(options){
