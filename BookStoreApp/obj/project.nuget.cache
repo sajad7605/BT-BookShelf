@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xDks2tv41R0=",
+  "dgSpecHash": "JwrlaQdUQPY=",
   "success": false,
   "projectFilePath": "/Users/mamad/Documents/ASP.net/BT-BookShelf/BookStoreApp/BookStoreApp.csproj",
   "expectedPackageFiles": [
@@ -25,9 +25,9 @@
     "/Users/mamad/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/Users/mamad/.nuget/packages/microsoft.data.sqlclient/5.1.6/microsoft.data.sqlclient.5.1.6.nupkg.sha512",
     "/Users/mamad/.nuget/packages/microsoft.data.sqlclient.sni.runtime/5.1.1/microsoft.data.sqlclient.sni.runtime.5.1.1.nupkg.sha512",
-    "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore/8.0.2/microsoft.entityframeworkcore.8.0.2.nupkg.sha512",
-    "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.2/microsoft.entityframeworkcore.abstractions.8.0.2.nupkg.sha512",
-    "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.2/microsoft.entityframeworkcore.analyzers.8.0.2.nupkg.sha512",
+    "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore/8.0.3/microsoft.entityframeworkcore.8.0.3.nupkg.sha512",
+    "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.3/microsoft.entityframeworkcore.abstractions.8.0.3.nupkg.sha512",
+    "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.3/microsoft.entityframeworkcore.analyzers.8.0.3.nupkg.sha512",
     "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore.design/9.0.1/microsoft.entityframeworkcore.design.9.0.1.nupkg.sha512",
     "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore.relational/9.0.1/microsoft.entityframeworkcore.relational.9.0.1.nupkg.sha512",
     "/Users/mamad/.nuget/packages/microsoft.entityframeworkcore.sqlserver/9.0.1/microsoft.entityframeworkcore.sqlserver.9.0.1.nupkg.sha512",
@@ -112,7 +112,7 @@
     {
       "code": "NU1605",
       "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.EntityFrameworkCore from 9.0.1 to 8.0.2. Reference the package directly from the project to select a different version. \n BookStoreApp -> Microsoft.EntityFrameworkCore.Design 9.0.1 -> Microsoft.EntityFrameworkCore.Relational 9.0.1 -> Microsoft.EntityFrameworkCore (>= 9.0.1) \n BookStoreApp -> Microsoft.EntityFrameworkCore (>= 8.0.2)",
+      "message": "Warning As Error: Detected package downgrade: Microsoft.EntityFrameworkCore from 9.0.1 to 8.0.3. Reference the package directly from the project to select a different version. \n BookStoreApp -> Microsoft.EntityFrameworkCore.Design 9.0.1 -> Microsoft.EntityFrameworkCore.Relational 9.0.1 -> Microsoft.EntityFrameworkCore (>= 9.0.1) \n BookStoreApp -> Microsoft.EntityFrameworkCore (>= 8.0.3)",
       "libraryId": "Microsoft.EntityFrameworkCore",
       "targetGraphs": [
         "net8.0"
@@ -121,7 +121,7 @@
     {
       "code": "NU1605",
       "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.EntityFrameworkCore from 9.0.1 to 8.0.2. Reference the package directly from the project to select a different version. \n BookStoreApp -> Microsoft.EntityFrameworkCore.SqlServer 9.0.1 -> Microsoft.EntityFrameworkCore.Relational 9.0.1 -> Microsoft.EntityFrameworkCore (>= 9.0.1) \n BookStoreApp -> Microsoft.EntityFrameworkCore (>= 8.0.2)",
+      "message": "Warning As Error: Detected package downgrade: Microsoft.EntityFrameworkCore from 9.0.1 to 8.0.3. Reference the package directly from the project to select a different version. \n BookStoreApp -> Microsoft.EntityFrameworkCore.SqlServer 9.0.1 -> Microsoft.EntityFrameworkCore.Relational 9.0.1 -> Microsoft.EntityFrameworkCore (>= 9.0.1) \n BookStoreApp -> Microsoft.EntityFrameworkCore (>= 8.0.3)",
       "libraryId": "Microsoft.EntityFrameworkCore",
       "targetGraphs": [
         "net8.0"
