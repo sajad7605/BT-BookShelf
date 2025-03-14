@@ -4,6 +4,14 @@ namespace BookStoreApp.Repositories{
     
         public class GenericRepo<T> : IRepository<T> where T : class
         {
+            private readonly AppDbContext _Context;
+            private readonly DbSet<T> _Table;
+            public GenericRepo(AppDbContext context)
+            {
+                _Context=context;
+                _Table=context.Set<T>();
+
+            }
             public Task<bool> AddAsync(T entity)
             {
                 throw new NotImplementedException();
@@ -19,9 +27,9 @@ namespace BookStoreApp.Repositories{
                 throw new NotImplementedException();
             }
 
-            public Task<IEnumerable<T>> GetAllAsync()
+            public async Task<IEnumerable<T>> GetAllAsync()
             {
-                throw new NotImplementedException();
+                return await _Table.ToListAsync();
             }
 
             public Task<T?> GetByIdAsync(int id)

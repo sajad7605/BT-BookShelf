@@ -6,7 +6,6 @@
 /Users/mamad/Documents/ASP.net/BT-BookShelf/BookStoreApp/bin/Debug/net8.0/BookStoreApp.dll
 /Users/mamad/Documents/ASP.net/BT-BookShelf/BookStoreApp/bin/Debug/net8.0/BookStoreApp.pdb
 /Users/mamad/Documents/ASP.net/BT-BookShelf/BookStoreApp/bin/Debug/net8.0/AutoMapper.dll
-/Users/mamad/Documents/ASP.net/BT-BookShelf/BookStoreApp/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /Users/mamad/Documents/ASP.net/BT-BookShelf/BookStoreApp/bin/Debug/net8.0/Azure.Core.dll
 /Users/mamad/Documents/ASP.net/BT-BookShelf/BookStoreApp/bin/Debug/net8.0/Azure.Identity.dll
 /Users/mamad/Documents/ASP.net/BT-BookShelf/BookStoreApp/bin/Debug/net8.0/Humanizer.dll
