@@ -7,7 +7,7 @@ namespace BookStoreApp.Interfaces{
         Task<bool> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
         Task<bool> DeleteByIdAsync(int id);
-        bool Save();
+        Task<bool> Save();
 
     }
 }

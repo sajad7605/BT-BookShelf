@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BookStoreApp.Interfaces;
 
 namespace BookStoreApp.Repositories{
@@ -12,19 +13,26 @@ namespace BookStoreApp.Repositories{
                 _Table=context.Set<T>();
 
             }
-            public Task<bool> AddAsync(T entity)
+            public async Task<bool> AddAsync(T entity)
             {
-                throw new NotImplementedException();
+                _Context.Add<T>(entity);
+                return await Save();
             }
 
-            public Task<bool> DeleteAsync(T entity)
+            public async Task<bool> DeleteAsync(T entity)
             {
-                throw new NotImplementedException();
+                _Context.Remove<T>(entity);
+                return await Save();
             }
 
-            public Task<bool> DeleteByIdAsync(int id)
+            public async Task<bool> DeleteByIdAsync(int id)
             {
-                throw new NotImplementedException();
+                T? obj= await GetByIdAsync(id);
+                if (obj is null){
+                    throw new NullReferenceException("the object was null! can't remove a null obj");
+                }
+            
+                return await DeleteAsync(obj);
             }
 
             public async Task<IEnumerable<T>> GetAllAsync()
@@ -32,19 +40,21 @@ namespace BookStoreApp.Repositories{
                 return await _Table.ToListAsync();
             }
 
-            public Task<T?> GetByIdAsync(int id)
+            public async Task<T?> GetByIdAsync(int id)
             {
-                throw new NotImplementedException();
+                return await _Table.FindAsync(id);
             }
 
-            public bool Save()
+            public async Task<bool> Save()
             {
-                throw new NotImplementedException();
+                var result=await _Context.SaveChangesAsync();
+                return result>0 ? true : false;
             }
 
-            public Task<bool> UpdateAsync(T entity)
+            public async Task<bool> UpdateAsync(T entity)
             {
-                throw new NotImplementedException();
+                _Context.Update<T>(entity);
+                return await Save();
             }
         
     }
