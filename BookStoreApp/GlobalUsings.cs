@@ -8,3 +8,6 @@ global using Microsoft.EntityFrameworkCore.SqlServer;
 global using BookStoreApp.Models;
 global using BookStoreApp.Data;
 global using System.ComponentModel.DataAnnotations;
+global using Microsoft.AspNetCore.Mvc;
+global using AutoMapper;
+
