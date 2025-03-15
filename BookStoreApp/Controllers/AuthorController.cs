@@ -8,11 +8,13 @@ namespace BookStoreApp.Controllers
     public class AuthorsController : Controller
     {
         private readonly IRepository<Author> _AuthorRepo;
+        private readonly IRepository<Book> _BookRepo;
         private readonly IMapper _Mapper;
-        public AuthorsController(IRepository<Author> AuthorRepo, IMapper mapper)
+        public AuthorsController(IRepository<Author> AuthorRepo, IMapper mapper,IRepository<Book> BookRepo)
         {
             _AuthorRepo = AuthorRepo;
             _Mapper = mapper;
+            _BookRepo=BookRepo;
         }
 
         [HttpGet]
@@ -53,7 +55,10 @@ namespace BookStoreApp.Controllers
         [Route("")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> CreateANewAuthor([FromBody] AuthorDto authorDto){
+        public async Task<IActionResult> CreateANewAuthor([FromBody] AuthorDto authorDto,[FromQuery] IEnumerable<BookDto> bookDtos,[FromQuery] IEnumerable<int> bookIds){
+
+            
+
             if(!ModelState.IsValid){
                 return BadRequest("Modelstate is not valid");
             }
@@ -62,6 +67,9 @@ namespace BookStoreApp.Controllers
                 return BadRequest($"sorry an author with the given id ({authorDto.Id}) already exists!");
             }
             Author Final= _Mapper.Map<Author>(authorDto);
+            IEnumerable<Book> BooksWrittenByAuthor=_Mapper.Map<IEnumerable<Book>>(bookDtos);
+            IEnumerable<Book> BooksWroteByAuthor=await _BookRepo.GetRangeByIdsAsync(bookIds);
+            
             try{
                 if (!await _AuthorRepo.AddAsync(Final)){
                 
@@ -73,7 +81,7 @@ namespace BookStoreApp.Controllers
 
             
             return NoContent();
-            
+ 
         }
 
 

@@ -10,4 +10,6 @@ global using BookStoreApp.Data;
 global using System.ComponentModel.DataAnnotations;
 global using Microsoft.AspNetCore.Mvc;
 global using AutoMapper;
+global using BookStoreApp.Dtos;
+global using BookStoreApp.Interfaces;
 
