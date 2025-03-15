@@ -55,7 +55,7 @@ namespace BookStoreApp.Controllers
         [Route("")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> CreateANewAuthor([FromBody] AuthorDto authorDto,[FromQuery] IEnumerable<BookDto> bookDtos,[FromQuery] IEnumerable<int> bookIds){
+        public async Task<IActionResult> CreateANewAuthor([FromBody] AuthorDto authorDto){
 
             
 
@@ -67,8 +67,6 @@ namespace BookStoreApp.Controllers
                 return BadRequest($"sorry an author with the given id ({authorDto.Id}) already exists!");
             }
             Author Final= _Mapper.Map<Author>(authorDto);
-            IEnumerable<Book> BooksWrittenByAuthor=_Mapper.Map<IEnumerable<Book>>(bookDtos);
-            IEnumerable<Book> BooksWroteByAuthor=await _BookRepo.GetRangeByIdsAsync(bookIds);
             
             try{
                 if (!await _AuthorRepo.AddAsync(Final)){

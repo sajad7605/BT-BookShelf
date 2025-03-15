@@ -6,7 +6,8 @@ namespace BookStoreApp.Helpers{
         {
             CreateMap<Author, AuthorDto>();
             CreateMap<AuthorDto, Author>();
-            
+            CreateMap<Book,BookDto>();
+            CreateMap<BookDto,Book>();
         }
     }
 }
