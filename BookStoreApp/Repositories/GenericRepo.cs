@@ -53,6 +53,11 @@ namespace BookStoreApp.Repositories
             return await _Table.AsNoTracking().FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
 
+        public async Task<T?> GetByNameAsync(string name)
+        {
+            return await _Table.FirstOrDefaultAsync(Name=> EF.Property<string>(Name,"BookName") == name);
+        }
+
         public async Task<IEnumerable<T>> GetRangeByIdsAsync(IEnumerable<int> Ids)
         {
             IEnumerable<T> entities=await _Table.Where(e=> Ids.Contains(EF.Property<int>(e,"Id"))).ToListAsync();

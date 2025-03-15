@@ -19,5 +19,37 @@ namespace BookStoreApp.Controllers{
             return Ok(Final);
         }
 
+        [HttpGet]
+        [Route("{Bookid}")]
+        [ProducesResponseType(200,Type = typeof(BookDto))]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> RetrieveASpecificBookByID(int Bookid){
+            var book=await _BookRepo.GetByIdAsync(Bookid);
+            if (book is null){
+                return NotFound("No book exists with the provided id");
+            }
+            var Final=_Mapper.Map<BookDto>(book);
+            return Ok(Final);
+        }
+
+        [HttpPost]
+        [Route("")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> CreateANewBook([FromBody] BookDto bookDto){
+            if (!ModelState.IsValid){
+                return BadRequest("Modelstate is not vaid ");
+            }
+            if (await _BookRepo.GetByIdAsync(bookDto.Id) is not null){
+                return BadRequest("Sorry the Book Already exists");
+            }
+
+            Book Final=_Mapper.Map<Book>(bookDto);
+            if (!await _BookRepo.AddAsync(Final)){
+                return BadRequest("sth went wrong saving the customer");
+            }
+            return NoContent();
+        }
+        
     }
 }

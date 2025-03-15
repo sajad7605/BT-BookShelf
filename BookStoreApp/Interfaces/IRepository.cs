@@ -7,6 +7,7 @@ namespace BookStoreApp.Interfaces{
         Task<bool> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
         Task<bool> DeleteByIdAsync(int id);
+        Task<T?> GetByNameAsync(string name);
         Task<bool> AddRangeAsync(IEnumerable<T> entities);
         Task<IEnumerable<T>> GetRangeByIdsAsync(IEnumerable<int> Ids);
         Task<bool> Save();
