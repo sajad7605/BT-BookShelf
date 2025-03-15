@@ -42,7 +42,7 @@ namespace BookStoreApp.Repositories{
 
             public async Task<T?> GetByIdAsync(int id)
             {
-                return await _Table.FindAsync(id);
+                return await _Table.AsNoTracking().FirstOrDefaultAsync(e=> EF.Property<int>(e,"Id")==id);
             }
 
             public async Task<bool> Save()
