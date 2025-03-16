@@ -60,13 +60,14 @@ namespace BookStoreApp.Controllers
             
 
             if(!ModelState.IsValid){
-                return BadRequest("Modelstate is not valid");
+                return BadRequest(ModelState);
             }
-            var author=await _AuthorRepo.GetByIdAsync(authorDto.Id);
+            var author=await _AuthorRepo.GetByNameAsync(authorDto.FullName);
             if(author is not null){
                 return BadRequest($"sorry an author with the given id ({authorDto.Id}) already exists!");
             }
             Author Final= _Mapper.Map<Author>(authorDto);
+            Final.Id=0;
             
             try{
                 if (!await _AuthorRepo.AddAsync(Final)){

@@ -50,9 +50,9 @@ namespace BookStoreApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Modelstate is not vaid ");
+                return BadRequest(ModelState);
             }
-            if (await _BookRepo.GetByIdAsync(bookDto.Id) is not null)
+            if (await _BookRepo.GetByNameAsync(bookDto.BookName) is not null)
             {
                 return BadRequest("Sorry the Book Already exists");
             }

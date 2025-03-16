@@ -2,7 +2,7 @@ namespace BookStoreApp.Data
 {
     public class SeedData()
     {
-        public static async void Seed(IApplicationBuilder ApplicationB)
+        public static async Task Seed(IApplicationBuilder ApplicationB)
         {
             using (var Scope = ApplicationB.ApplicationServices.CreateScope())
             {
@@ -23,6 +23,7 @@ namespace BookStoreApp.Data
                 };
                 await userManager.CreateAsync(SA,"Password_123#");
                 await userManager.AddToRoleAsync(SA,Roles.admin);
+                context.SaveChanges();
                 
             }
 

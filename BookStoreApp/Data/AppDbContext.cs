@@ -37,26 +37,26 @@ namespace BookStoreApp.Data
 
 
             builder.Entity<Book>().HasData(
-                new Book { Id = 1, BookName = "Pride and Prejudice" },
-                new Book { Id = 2, BookName = "A Man Called Over" },
-                new Book { Id = 3, BookName = "Harry Potter 1" },
-                new Book { Id = 4, BookName = "Harry Potter 2" },
-                new Book { Id = 5, BookName = "Harry Potter 3" },
-                new Book { Id = 6, BookName = "Harry Potter 4" }
+                new Book { Id = 1, Name = "Pride and Prejudice" },
+                new Book { Id = 2, Name = "A Man Called Over" },
+                new Book { Id = 3, Name = "Harry Potter 1" },
+                new Book { Id = 4, Name = "Harry Potter 2" },
+                new Book { Id = 5, Name = "Harry Potter 3" },
+                new Book { Id = 6, Name = "Harry Potter 4" }
             );
 
             builder.Entity<Author>().HasData(
-                new Author { Id = 1, FullName = "Jane Austin" }
-                , new Author { Id = 2, FullName = "JK rowling" }
+                new Author { Id = 1, Name = "Jane Austin" }
+                , new Author { Id = 2, Name = "JK rowling" }
             );
 
             builder.Entity<Ordering>().HasData(
-                new Ordering { Id = 1, OrderDateTime = new DateTime(2025, 3, 14) }
-                , new Ordering { Id = 2, OrderDateTime = new DateTime(2025, 3, 14) }
+                new Ordering { Id = 1, OrderDateTime = new DateTime(2025, 3, 14) ,Name = "Order 1"}
+                , new Ordering { Id = 2, OrderDateTime = new DateTime(2025, 3, 14), Name = "Order 2" }
             );
             builder.Entity<Category>().HasData(
-                new Category { Id = 1, CategoryType = "Horror" },
-                new Category { Id = 2, CategoryType = "Romance" }
+                new Category { Id = 1, Name = "Horror" },
+                new Category { Id = 2, Name = "Romance" }
             );
             builder.Entity<BookAuthor>().HasData(
                 new BookAuthor { BookId = 1, AuthorId = 2 },

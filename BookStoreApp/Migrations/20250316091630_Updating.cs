@@ -8,11 +8,33 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookStoreApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Seed : Migration
+    public partial class Updating : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "CategoryType",
+                table: "Categories",
+                newName: "Name");
+
+            migrationBuilder.RenameColumn(
+                name: "BookName",
+                table: "Books",
+                newName: "Name");
+
+            migrationBuilder.RenameColumn(
+                name: "FullName",
+                table: "Authors",
+                newName: "Name");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "Orderings",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
             migrationBuilder.AddColumn<DateTime>(
                 name: "OrderDateTime",
                 table: "Orderings",
@@ -22,7 +44,7 @@ namespace BookStoreApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Authors",
-                columns: new[] { "Id", "FullName" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Jane Austin" },
@@ -31,7 +53,7 @@ namespace BookStoreApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Books",
-                columns: new[] { "Id", "BookName" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Pride and Prejudice" },
@@ -44,7 +66,7 @@ namespace BookStoreApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CategoryType" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Horror" },
@@ -53,11 +75,11 @@ namespace BookStoreApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Orderings",
-                columns: new[] { "Id", "OrderDateTime" },
+                columns: new[] { "Id", "Name", "OrderDateTime" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2025, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, "Order 1", new DateTime(2025, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "Order 2", new DateTime(2025, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -260,8 +282,27 @@ namespace BookStoreApp.Migrations
                 keyValue: 2);
 
             migrationBuilder.DropColumn(
+                name: "Name",
+                table: "Orderings");
+
+            migrationBuilder.DropColumn(
                 name: "OrderDateTime",
                 table: "Orderings");
+
+            migrationBuilder.RenameColumn(
+                name: "Name",
+                table: "Categories",
+                newName: "CategoryType");
+
+            migrationBuilder.RenameColumn(
+                name: "Name",
+                table: "Books",
+                newName: "BookName");
+
+            migrationBuilder.RenameColumn(
+                name: "Name",
+                table: "Authors",
+                newName: "FullName");
         }
     }
 }

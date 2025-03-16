@@ -55,7 +55,7 @@ namespace BookStoreApp.Repositories
 
         public async Task<T?> GetByNameAsync(string name)
         {
-            return await _Table.FirstOrDefaultAsync(Name=> EF.Property<string>(Name,"BookName") == name);
+            return await _Table.FirstOrDefaultAsync(Name=> EF.Property<string>(Name,"Name") == name);
         }
 
         public async Task<IEnumerable<T>> GetRangeByIdsAsync(IEnumerable<int> Ids)

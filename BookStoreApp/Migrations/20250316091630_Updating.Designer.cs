@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250314131526_Seed")]
-    partial class Seed
+    [Migration("20250316091630_Updating")]
+    partial class Updating
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace BookStoreApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BookName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -45,32 +45,32 @@ namespace BookStoreApp.Migrations
                         new
                         {
                             Id = 1,
-                            BookName = "Pride and Prejudice"
+                            Name = "Pride and Prejudice"
                         },
                         new
                         {
                             Id = 2,
-                            BookName = "A Man Called Over"
+                            Name = "A Man Called Over"
                         },
                         new
                         {
                             Id = 3,
-                            BookName = "Harry Potter 1"
+                            Name = "Harry Potter 1"
                         },
                         new
                         {
                             Id = 4,
-                            BookName = "Harry Potter 2"
+                            Name = "Harry Potter 2"
                         },
                         new
                         {
                             Id = 5,
-                            BookName = "Harry Potter 3"
+                            Name = "Harry Potter 3"
                         },
                         new
                         {
                             Id = 6,
-                            BookName = "Harry Potter 4"
+                            Name = "Harry Potter 4"
                         });
                 });
 
@@ -82,7 +82,7 @@ namespace BookStoreApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -94,12 +94,12 @@ namespace BookStoreApp.Migrations
                         new
                         {
                             Id = 1,
-                            FullName = "Jane Austin"
+                            Name = "Jane Austin"
                         },
                         new
                         {
                             Id = 2,
-                            FullName = "JK rowling"
+                            Name = "JK rowling"
                         });
                 });
 
@@ -257,7 +257,7 @@ namespace BookStoreApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CategoryType")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -269,12 +269,12 @@ namespace BookStoreApp.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryType = "Horror"
+                            Name = "Horror"
                         },
                         new
                         {
                             Id = 2,
-                            CategoryType = "Romance"
+                            Name = "Romance"
                         });
                 });
 
@@ -285,6 +285,10 @@ namespace BookStoreApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OrderDateTime")
                         .HasColumnType("datetime2");
@@ -297,11 +301,13 @@ namespace BookStoreApp.Migrations
                         new
                         {
                             Id = 1,
+                            Name = "Order 1",
                             OrderDateTime = new DateTime(2025, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
+                            Name = "Order 2",
                             OrderDateTime = new DateTime(2025, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });

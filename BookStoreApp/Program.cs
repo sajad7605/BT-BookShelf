@@ -14,19 +14,23 @@ builder.Services.Configure<ConnectionStringModel>(builder.Configuration.GetSecti
 builder.Services.AddSwaggerGen();
 builder.Services.AddIdentity<User,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(GenericRepo<>));
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMemoryCache();
+builder.Services.AddSession();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 builder.Services.ConfigureApplicationCookie(options =>{
     options.LoginPath="/User/AccessDenied"; // Redirects to login if not authenticated
     options.AccessDeniedPath = "/Account/AccessDenied"; // Redirects to AccessDenied if authenticated but unauthorized
 });
-
+Console.WriteLine("Helllo Heloooo \n");
 var app = builder.Build();
 if(args.Length==1 && args[0].ToLower()=="seedroles"){
-    SeedData.Seed(app);
+    await SeedData.Seed(app);
 }
+
+Console.WriteLine("Helllo Heloooo \n");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -34,6 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action}/{id?}");
