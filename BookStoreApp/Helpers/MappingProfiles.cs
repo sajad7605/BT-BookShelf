@@ -8,6 +8,8 @@ namespace BookStoreApp.Helpers{
             CreateMap<AuthorDto, Author>();
             CreateMap<Book,BookDto>();
             CreateMap<BookDto,Book>();
+            CreateMap<Category,CategoryDto>();
+            CreateMap<CategoryDto,Category>();
         }
     }
 }

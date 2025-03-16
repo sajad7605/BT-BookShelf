@@ -72,7 +72,7 @@ namespace BookStoreApp.Controllers
             }
             return NoContent();
         }
-         [HttpPut]
+        [HttpPut]
         [Route("{Bookid}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -85,7 +85,7 @@ namespace BookStoreApp.Controllers
                 return BadRequest(ModelState);
             }
             Console.WriteLine("LINE Error 85");
-            if(await _AuthorRepo.GetByIdAsync(Bookid) is null){
+            if(await _BookRepo.GetByIdAsync(Bookid) is null){
                 return NotFound($"No Book Exists with the provided Id {Bookid}");
             }
             Console.WriteLine("LINE Error 89");
