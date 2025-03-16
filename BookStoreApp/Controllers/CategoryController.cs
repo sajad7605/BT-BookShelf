@@ -1,5 +1,5 @@
-namespace CategoryStoreApp.Controllers{
-    namespace CategoryStoreApp.Controllers
+
+namespace CategoryStoreApp.Controllers
 {
     [Route("api/[controller]")]
     public class CategoryController : Controller
@@ -78,20 +78,25 @@ namespace CategoryStoreApp.Controllers{
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> UpdateAnExistingAuthor(int Categoryid,[FromBody] CategoryDto CategoryDto){
-            if (Categoryid != CategoryDto.Id){
+        public async Task<IActionResult> UpdateAnExistingAuthor(int Categoryid, [FromBody] CategoryDto CategoryDto)
+        {
+            if (Categoryid != CategoryDto.Id)
+            {
                 return BadRequest("IDs don't match!");
             }
-            if (!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
             Console.WriteLine("LINE Error 85");
-            if(await _CategoryRepo.GetByIdAsync(Categoryid) is null){
+            if (await _CategoryRepo.GetByIdAsync(Categoryid) is null)
+            {
                 return NotFound($"No Category Exists with the provided Id {Categoryid}");
             }
             Console.WriteLine("LINE Error 89");
-            Category Final= _Mapper.Map<Category>(CategoryDto);
-            if (!await _CategoryRepo.UpdateAsync(Final)){
+            Category Final = _Mapper.Map<Category>(CategoryDto);
+            if (!await _CategoryRepo.UpdateAsync(Final))
+            {
                 return BadRequest("sth went wrong updating the Category");
             }
             return NoContent();
@@ -103,11 +108,14 @@ namespace CategoryStoreApp.Controllers{
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> DeleteAnAuthor(int Categoryid){
-            if (await _CategoryRepo.GetByIdAsync(Categoryid) is null){
+        public async Task<IActionResult> DeleteAnAuthor(int Categoryid)
+        {
+            if (await _CategoryRepo.GetByIdAsync(Categoryid) is null)
+            {
                 return BadRequest($"No User Exists with the provided id {Categoryid} to delete");
             }
-            if(!await _CategoryRepo.DeleteByIdAsync(Categoryid)){
+            if (!await _CategoryRepo.DeleteByIdAsync(Categoryid))
+            {
                 return BadRequest("Sth went wrong while deleting the Author");
             }
             return NoContent();
@@ -115,5 +123,4 @@ namespace CategoryStoreApp.Controllers{
 
 
     }
-}
 }
