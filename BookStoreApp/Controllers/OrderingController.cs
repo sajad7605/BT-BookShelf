@@ -2,6 +2,8 @@
     namespace BookStoreApp.Controllers
 {   
     [Route("api/[controller]")]
+    [Authorize]
+    [ApiController]
     public class OrderingController : Controller
     {
         private readonly IRepository<Author> _AuthorRepo;
@@ -59,6 +61,7 @@
             }
 
             Ordering Final = _Mapper.Map<Ordering>(OrderingDto);
+            Final.Id=default;
 
             try
             {

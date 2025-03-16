@@ -1,6 +1,8 @@
 namespace BookStoreApp.Controllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/[controller]")]
+    [ApiController]
     public class BookController : Controller
     {
         private readonly IRepository<Author> _AuthorRepo;
@@ -58,6 +60,7 @@ namespace BookStoreApp.Controllers
             }
 
             Book Final = _Mapper.Map<Book>(bookDto);
+            Final.Id = default;
 
             try
             {
@@ -77,20 +80,25 @@ namespace BookStoreApp.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> UpdateAnExistingAuthor(int Bookid,[FromBody] BookDto bookDto){
-            if (Bookid != bookDto.Id){
+        public async Task<IActionResult> UpdateAnExistingAuthor(int Bookid, [FromBody] BookDto bookDto)
+        {
+            if (Bookid != bookDto.Id)
+            {
                 return BadRequest("IDs don't match!");
             }
-            if (!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
             Console.WriteLine("LINE Error 85");
-            if(await _BookRepo.GetByIdAsync(Bookid) is null){
+            if (await _BookRepo.GetByIdAsync(Bookid) is null)
+            {
                 return NotFound($"No Book Exists with the provided Id {Bookid}");
             }
             Console.WriteLine("LINE Error 89");
-            Book Final= _Mapper.Map<Book>(bookDto);
-            if (!await _BookRepo.UpdateAsync(Final)){
+            Book Final = _Mapper.Map<Book>(bookDto);
+            if (!await _BookRepo.UpdateAsync(Final))
+            {
                 return BadRequest("sth went wrong updating the Book");
             }
             return NoContent();
@@ -102,11 +110,14 @@ namespace BookStoreApp.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> DeleteAnAuthor(int Bookid){
-            if (await _BookRepo.GetByIdAsync(Bookid) is null){
+        public async Task<IActionResult> DeleteAnAuthor(int Bookid)
+        {
+            if (await _BookRepo.GetByIdAsync(Bookid) is null)
+            {
                 return BadRequest($"No User Exists with the provided id {Bookid} to delete");
             }
-            if(!await _BookRepo.DeleteByIdAsync(Bookid)){
+            if (!await _BookRepo.DeleteByIdAsync(Bookid))
+            {
                 return BadRequest("Sth went wrong while deleting the Author");
             }
             return NoContent();

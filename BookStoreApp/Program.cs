@@ -21,16 +21,16 @@ builder.Services.AddSession();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 builder.Services.ConfigureApplicationCookie(options =>{
-    options.LoginPath="/User/AccessDenied"; // Redirects to login if not authenticated
-    options.AccessDeniedPath = "/Account/AccessDenied"; // Redirects to AccessDenied if authenticated but unauthorized
+    options.LoginPath="/api/User/Login"; // Redirects to login if not authenticated
+    options.AccessDeniedPath = "/api/User/AccessDenied"; // Redirects to AccessDenied if authenticated but unauthorized
 });
-Console.WriteLine("Helllo Heloooo \n");
+//Console.WriteLine("Helllo Heloooo \n");
 var app = builder.Build();
 if(args.Length==1 && args[0].ToLower()=="seedroles"){
     await SeedData.Seed(app);
 }
 
-Console.WriteLine("Helllo Heloooo \n");
+//Console.WriteLine("Helllo Heloooo \n");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

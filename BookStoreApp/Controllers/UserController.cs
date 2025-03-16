@@ -1,6 +1,7 @@
 namespace BookStoreApp.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
         private readonly IRepository<User> _UserRepo;
@@ -20,6 +21,7 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "User")]
         [Route("")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<User>))]
         [ProducesResponseType(404)]
@@ -34,6 +36,7 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "User")]
         [Route("{Userid}")]
         [ProducesResponseType(200, Type = typeof(User))]
         [ProducesResponseType(404)]
@@ -47,55 +50,68 @@ namespace BookStoreApp.Controllers
             return Ok(user);
 
         }
+        [HttpGet]
+        [Route("Register")]
+        [Route("Login")]
+        public async Task<IActionResult> RegisterANewUser()
+        {
+            return BadRequest("ACCESS DENIED ,LOG IN OR REGISTER FIRST");
+        }
+
 
         [HttpPost]
-        [Route("")]
+        [Route("Register")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> RegisterANewUser([FromBody] UserRegisterDto userDto)
         {
             using (_Context.Database.BeginTransaction())
             {
-                try{
+                try
+                {
                     if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
+                    {
+                        return BadRequest(ModelState);
+                    }
+                    User? user = await _UserManager.FindByEmailAsync(userDto.Email);
+                    if (user is not null)
+                    {
+                        return BadRequest("sorry a user exists with the provided email");
+                    }
+                    User NewUser = new User
+                    {
+                        Email = userDto.Email,
+                        UserName = userDto.Email
+                    };
+                    var Creationresult = await _UserManager.CreateAsync(NewUser, userDto.Password);
+                    if (Creationresult.Succeeded)
+                    {
+                        IdentityResult Roleresult = await _UserManager.AddToRoleAsync(NewUser, Roles.user);
+                    }
+                    int r = await _Context.SaveChangesAsync();
+                    _Context.Database.CommitTransaction();
+                    Console.WriteLine($"the user was created result = {r}");
+                    return NoContent();
                 }
-                User? user = await _UserManager.FindByEmailAsync(userDto.Email);
-                if (user is not null)
+                catch
                 {
-                    return BadRequest("sorry a user exists with the provided email");
-                }
-                User NewUser = new User
-                {
-                    Email = userDto.Email,
-                    UserName = userDto.Email
-                };
-                var Creationresult = await _UserManager.CreateAsync(NewUser, userDto.Password);
-                if (Creationresult.Succeeded)
-                {
-                    IdentityResult Roleresult = await _UserManager.AddToRoleAsync(NewUser, Roles.user);
-                }
-                _Context.SaveChanges();
-                _Context.Database.CommitTransaction();
-                return NoContent();
-                }catch{
                     _Context.Database.RollbackTransaction();
                     return BadRequest("sth went wrong saving the user!");
                 }
-                
+
             }
 
         }
 
 
         [HttpPost]
-        [Route("")]
+        [Route("Login")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> Login([FromBody] UserLoginDto userDto){
-             if (!ModelState.IsValid)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto userDto)
+        {
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -108,13 +124,33 @@ namespace BookStoreApp.Controllers
                     var result = await _SignInManager.PasswordSignInAsync(User, userDto.Password, true, true);
                     if (result.Succeeded)
                     {
-                       return NoContent();
+                        return NoContent();
                     }
                 }
                 return BadRequest("Wrong Credentials");
 
             }
             return NotFound("User doesn't exist!");
+        }
+        [HttpGet]
+        [Route("AccessDenied")]
+        [ProducesResponseType(400)]
+        public IActionResult AccessDenied()
+        {
+            return BadRequest("ACCESS DENIED!");
+        }
+
+        [HttpPost]
+        [Route("Logout")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> Logout(){
+            try{
+                await _SignInManager.SignOutAsync();
+                return Ok("the user was signed out");
+            }catch{
+                return BadRequest("couldn't sign the user out!");
+            }
         }
     }
 }

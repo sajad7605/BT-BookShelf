@@ -2,6 +2,9 @@
 namespace BookStoreApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "User")]
+    [ApiController]
+
     public class CategoryController : Controller
     {
         private readonly IRepository<Author> _AuthorRepo;
@@ -59,6 +62,7 @@ namespace BookStoreApp.Controllers
             }
 
             Category Final = _Mapper.Map<Category>(CategoryDto);
+            Final.Id=default;
 
             try
             {

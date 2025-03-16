@@ -5,7 +5,7 @@ namespace BookStoreApp.Dtos{
         public string Email { get; set; }
 
         [PasswordPropertyText]
-        [DataType(DataType.Password)]
+       [DataType(DataType.Password , ErrorMessage = "password is invalid 8 characters, lower and uppercase letters and 1 specific letter")]
         [Required(ErrorMessage ="Password is required")]
         public string Password { get; set; }
 
