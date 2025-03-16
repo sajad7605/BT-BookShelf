@@ -1,5 +1,7 @@
 using BookStoreApp.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using BookStoreApp.Repositories;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -12,6 +14,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddIdentity<User,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(GenericRepo<>));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMemoryCache();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+builder.Services.ConfigureApplicationCookie(options =>{
+    options.LoginPath="/User/AccessDenied"; // Redirects to login if not authenticated
+    options.AccessDeniedPath = "/Account/AccessDenied"; // Redirects to AccessDenied if authenticated but unauthorized
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
