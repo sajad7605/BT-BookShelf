@@ -10,6 +10,9 @@ namespace BookStoreApp.Helpers{
             CreateMap<BookDto,Book>();
             CreateMap<Category,CategoryDto>();
             CreateMap<CategoryDto,Category>();
+            CreateMap<Ordering,OrderingDto>();
+            CreateMap<OrderingDto,Ordering>();
+            
         }
     }
 }

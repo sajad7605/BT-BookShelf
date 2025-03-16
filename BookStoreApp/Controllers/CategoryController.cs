@@ -1,45 +1,45 @@
 
-namespace CategoryStoreApp.Controllers
-{
+    namespace BookStoreApp.Controllers
+{   
     [Route("api/[controller]")]
-    public class CategoryController : Controller
+    public class OrderingController : Controller
     {
         private readonly IRepository<Author> _AuthorRepo;
-        private readonly IRepository<Category> _CategoryRepo;
+        private readonly IRepository<Ordering> _OrderingRepo;
         private readonly IMapper _Mapper;
-        public CategoryController(IRepository<Author> AuthorRepo, IMapper mapper, IRepository<Category> CategoryRepo)
+        public OrderingController(IRepository<Author> AuthorRepo, IMapper mapper, IRepository<Ordering> OrderingRepo)
         {
             _AuthorRepo = AuthorRepo;
             _Mapper = mapper;
-            _CategoryRepo = CategoryRepo;
+            _OrderingRepo = OrderingRepo;
         }
 
 
 
         [HttpGet]
         [Route("")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Category>))]
-        public async Task<IActionResult> RetrieveAllCategorys()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Ordering>))]
+        public async Task<IActionResult> RetrieveAllOrderings()
         {
-            IEnumerable<Category> Categorys = await _CategoryRepo.GetAllAsync();
-            IEnumerable<CategoryDto> Final = _Mapper.Map<IEnumerable<CategoryDto>>(Categorys);
+            IEnumerable<Ordering> Orderings = await _OrderingRepo.GetAllAsync();
+            IEnumerable<OrderingDto> Final = _Mapper.Map<IEnumerable<OrderingDto>>(Orderings);
             return Ok(Final);
         }
 
 
 
         [HttpGet]
-        [Route("{Categoryid}")]
-        [ProducesResponseType(200, Type = typeof(CategoryDto))]
+        [Route("{Orderingid}")]
+        [ProducesResponseType(200, Type = typeof(OrderingDto))]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> RetrieveASpecificCategoryByID(int Categoryid)
+        public async Task<IActionResult> RetrieveASpecificOrderingByID(int Orderingid)
         {
-            var Category = await _CategoryRepo.GetByIdAsync(Categoryid);
-            if (Category is null)
+            var Ordering = await _OrderingRepo.GetByIdAsync(Orderingid);
+            if (Ordering is null)
             {
-                return NotFound("No Category exists with the provided id");
+                return NotFound("No Ordering exists with the provided id");
             }
-            var Final = _Mapper.Map<CategoryDto>(Category);
+            var Final = _Mapper.Map<OrderingDto>(Ordering);
             return Ok(Final);
         }
 
@@ -47,22 +47,22 @@ namespace CategoryStoreApp.Controllers
         [Route("")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> CreateANewCategory([FromBody] CategoryDto CategoryDto)
+        public async Task<IActionResult> CreateANewOrdering([FromBody] OrderingDto OrderingDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Modelstate is not vaid ");
             }
-            if (await _CategoryRepo.GetByIdAsync(CategoryDto.Id) is not null)
+            if (await _OrderingRepo.GetByIdAsync(OrderingDto.Id) is not null)
             {
-                return BadRequest("Sorry the Category Already exists");
+                return BadRequest("Sorry the Ordering Already exists");
             }
 
-            Category Final = _Mapper.Map<Category>(CategoryDto);
+            Ordering Final = _Mapper.Map<Ordering>(OrderingDto);
 
             try
             {
-                if (!await _CategoryRepo.AddAsync(Final))
+                if (!await _OrderingRepo.AddAsync(Final))
                 {
                     return BadRequest("sth went wrong saving the customer");
                 }
@@ -74,48 +74,40 @@ namespace CategoryStoreApp.Controllers
             return NoContent();
         }
         [HttpPut]
-        [Route("{Categoryid}")]
+        [Route("{Orderingid}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> UpdateAnExistingAuthor(int Categoryid, [FromBody] CategoryDto CategoryDto)
-        {
-            if (Categoryid != CategoryDto.Id)
-            {
+        public async Task<IActionResult> UpdateAnExistingAuthor(int Orderingid,[FromBody] OrderingDto OrderingDto){
+            if (Orderingid != OrderingDto.Id){
                 return BadRequest("IDs don't match!");
             }
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid){
                 return BadRequest(ModelState);
             }
             Console.WriteLine("LINE Error 85");
-            if (await _CategoryRepo.GetByIdAsync(Categoryid) is null)
-            {
-                return NotFound($"No Category Exists with the provided Id {Categoryid}");
+            if(await _OrderingRepo.GetByIdAsync(Orderingid) is null){
+                return NotFound($"No Ordering Exists with the provided Id {Orderingid}");
             }
             Console.WriteLine("LINE Error 89");
-            Category Final = _Mapper.Map<Category>(CategoryDto);
-            if (!await _CategoryRepo.UpdateAsync(Final))
-            {
-                return BadRequest("sth went wrong updating the Category");
+            Ordering Final= _Mapper.Map<Ordering>(OrderingDto);
+            if (!await _OrderingRepo.UpdateAsync(Final)){
+                return BadRequest("sth went wrong updating the Ordering");
             }
             return NoContent();
         }
 
 
         [HttpDelete]
-        [Route("{Categoryid}")]
+        [Route("{Orderingid}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> DeleteAnAuthor(int Categoryid)
-        {
-            if (await _CategoryRepo.GetByIdAsync(Categoryid) is null)
-            {
-                return BadRequest($"No User Exists with the provided id {Categoryid} to delete");
+        public async Task<IActionResult> DeleteAnAuthor(int Orderingid){
+            if (await _OrderingRepo.GetByIdAsync(Orderingid) is null){
+                return BadRequest($"No User Exists with the provided id {Orderingid} to delete");
             }
-            if (!await _CategoryRepo.DeleteByIdAsync(Categoryid))
-            {
+            if(!await _OrderingRepo.DeleteByIdAsync(Orderingid)){
                 return BadRequest("Sth went wrong while deleting the Author");
             }
             return NoContent();
