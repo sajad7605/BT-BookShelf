@@ -1,6 +1,5 @@
-
 namespace BookStoreApp.Dtos{
-    public class UserDto{
+    public class UserRegisterDto{
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]
         [Required(ErrorMessage = "Email Address is required")]
         public string Email { get; set; }

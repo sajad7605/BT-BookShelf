@@ -2,6 +2,7 @@ using BookStoreApp.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BookStoreApp.Repositories;
 using Microsoft.Extensions.Options;
+using BookStoreApp.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -23,6 +24,9 @@ builder.Services.ConfigureApplicationCookie(options =>{
 });
 
 var app = builder.Build();
+if(args.Length==1 && args[0].ToLower()=="seedroles"){
+    SeedData.Seed(app);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
